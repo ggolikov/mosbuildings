@@ -34,7 +34,9 @@ var osm = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{
             return f.properties.osm_id;
         },
     }
-    var tileLayer = L.vectorGrid.slicer(data, tileOptions).addTo(map);
+    // var tileLayer = L.vectorGrid.slicer(data, tileOptions).addTo(map);
+
+    var tileLayer = L.vectorGrid.protobuf("https://s3.eu-central-1.amazonaws.com/gglkv-tileservice/buildings/{z}/{x}/{y}", tileOptions).addTo(map);
 
     var hoverStyle = {
         weight: 1,
@@ -44,6 +46,7 @@ var osm = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{
         fill: true
     };
 
+window.tl = tileLayer;
 
     tileLayer.on('mouseover', function (e) {
         this.setFeatureStyle(this.options.getFeatureId(e.layer), hoverStyle);
